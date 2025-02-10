@@ -62,10 +62,9 @@ export function OverviewController($scope, $http, $location, menuService, endpoi
     }
     
     $scope.changeSortingOrder = function (column) {
-        let orderBy = $scope.getOrAddSortingOrder(column);
-        $scope.sortingOrder[column] = !orderBy;
+        for (const [key, value] of Object.entries($scope.sortingOrder))
+            $scope.sortingOrder[key] = key === column ? !value : true;
         $scope.sortBy = column;
-        return orderBy;
     }
 
     $scope.getFilteredItems = function () {
