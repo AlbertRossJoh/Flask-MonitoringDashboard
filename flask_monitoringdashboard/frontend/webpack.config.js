@@ -9,9 +9,6 @@ module.exports = {
         filename: 'js/app.js',
         publicPath: path.resolve(__dirname, '../static/'),
     },
-    devServer: {
-        port: 4200,
-    },
     module: {
         rules: [
             {
