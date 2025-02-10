@@ -7,7 +7,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "../static"),
         filename: "js/app.js",
-        //publicPath: "/static/",
         publicPath: path.resolve(__dirname, "../static/"),
     },
     devServer: {
@@ -30,7 +29,7 @@ module.exports = {
             },
             {
                 test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=\d+\.\d+\.\d+)?$/,
-                type: "asset/resource",
+                type: 'asset/resource',
                 generator: {
                     filename: "fonts/[name][ext]",
                 },
@@ -43,4 +42,3 @@ module.exports = {
         }),
     ],
 };
-console.log(module.exports);

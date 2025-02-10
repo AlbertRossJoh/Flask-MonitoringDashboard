@@ -573,3 +573,6 @@ textarea#customReason:focus {
     transition: transform 0.3s ease;
 }
 
+.text-gray {
+  color: gray;
+}

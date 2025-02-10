@@ -5,7 +5,8 @@ export function OverviewController($scope, $http, $location, menuService, endpoi
     $scope.pypi_version = '';
     $scope.dashboard_version = '';
     $scope.isHits = true;
-    $scope.sortBy = { 'prop': 'name', 'desc': true}
+    $scope.sortBy = 'name';
+    $scope.sortingOrder = {};
 
     $scope.table = [];
     $scope.selectedItem = 2;
@@ -29,13 +30,12 @@ export function OverviewController($scope, $http, $location, menuService, endpoi
         $scope.table = response.data;
     });
 
+    function sortOrder(a, b){
+      return a[$scope.sortBy] > b[$scope.sortBy] || b[$scope.sortBy] === null;
+    }
     
-
     function sortItems(items){
-      if ($scope.sortBy.desc)
-        return items.sort((a, b) => a[$scope.sortBy.prop] > b[$scope.sortBy.prop] || b[$scope.sortBy.prop] === null);
-      else 
-        return items.sort((a, b) => a[$scope.sortBy.prop] < b[$scope.sortBy.prop] || a[$scope.sortBy.prop] === null);
+      return $scope.getOrAddSortingOrder($scope.sortBy) ? items.sort(sortOrder) : items.sort((a, b) => sortOrder(b, a))
     }
 
     function getItemsForPage(pageNumber) {
@@ -52,8 +52,34 @@ export function OverviewController($scope, $http, $location, menuService, endpoi
         return sortItems(items).slice(start, end);
     }
 
+    $scope.getOrAddSortingOrder = function (column) {
+        let orderBy = $scope.sortingOrder[column];
+        if (orderBy !== undefined) {
+            return orderBy;
+        }
+        $scope.sortingOrder[column] = true;
+        return true;
+    }
+    
+    $scope.changeSortingOrder = function (column) {
+        let orderBy = $scope.getOrAddSortingOrder(column);
+        $scope.sortingOrder[column] = !orderBy;
+        $scope.sortBy = column;
+        return orderBy;
+    }
+
     $scope.getFilteredItems = function () {
         return getItemsForPage($scope.currentPage);
+    }
+
+    $scope.getSortArrowClassName = function (column) {
+      let isCurrentProp = $scope.sortBy === column;
+      let desc = $scope.getOrAddSortingOrder(column);
+      return {
+        'rotate-up': desc,
+        'rotate-down': !desc,
+        'text-gray': !isCurrentProp 
+      }
     }
 
     $scope.canGoBack = function () {

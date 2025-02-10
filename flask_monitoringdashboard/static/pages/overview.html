@@ -75,82 +75,82 @@
                           <tr>
                               <th></th>
                             <th 
-                              ng-click="sortBy = {'prop': 'name', 'desc': !sortBy.desc}" 
-                              style="cursor: pointer">
+                                ng-click="changeSortingOrder('name')" 
+                                style="cursor: pointer">
                                 <div class="d-flex justify-content-between">
                                   Endpoint
-                                  <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'name', 'rotate-down': !sortBy.desc && sortBy.prop === 'name', 'text-gray': sortBy.prop !== 'name'}">&uarr;</span>
+                                  <span ng-class="getSortArrowClassName('name')">&uarr;</span>
                                 </div>
                             </th>
                             <th 
-                              ng-show="isHits" 
-                              style="cursor: pointer"
-                              ng-click="sortBy = {'prop': 'hits-today', 'desc': !sortBy.desc}" >
-                              <div class="d-flex justify-content-between">
+                                ng-show="isHits" 
+                                style="cursor: pointer"
+                                ng-click="changeSortingOrder('hits-today')">
+                                <div class="d-flex justify-content-between">
                                   Today
-                                  <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'hits-today', 'rotate-down': !sortBy.desc && sortBy.prop === 'hits-today', 'text-gray': sortBy.prop !== 'hits-today'}">&uarr;</span>
+                                  <span ng-class="getSortArrowClassName('hits-today')">&uarr;</span>
                                 </div>
                             </th>
                             <th 
-                              ng-show="isHits"
-                              style="cursor: pointer"
-                              ng-click="sortBy = {'prop': 'hits-week', 'desc': !sortBy.desc}" >
-                              <div class="d-flex justify-content-between">
+                                ng-show="isHits"
+                                style="cursor: pointer"
+                                ng-click="changeSortingOrder('hits-week')">
+                                <div class="d-flex justify-content-between">
                                   Last 7 days
-                                  <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'hits-week', 'rotate-down': !sortBy.desc && sortBy.prop === 'hits-week', 'text-gray': sortBy.prop !== 'hits-week'}">&uarr;</span>
+                                  <span ng-class="getSortArrowClassName('hits-week')">&uarr;</span>
                                 </div>
                             </th>
                             <th 
-                              ng-show="isHits"
-                              style="cursor: pointer"
-                              ng-click="sortBy = {'prop': 'hits-overall', 'desc': !sortBy.desc}" >
+                                ng-show="isHits"
+                                style="cursor: pointer"
+                                ng-click="changeSortingOrder('hits-overall')">
                                 <div class="d-flex justify-content-between">
                                   Overall 
-                                  <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'hits-overall', 'rotate-down': !sortBy.desc && sortBy.prop === 'hits-overall', 'text-gray': sortBy.prop !== 'hits-overall'}">&uarr;</span>
+                                  <span ng-class="getSortArrowClassName('hits-overall')">&uarr;</span>
                                 </div>
                             </th>
                             <th 
                                 style="cursor: pointer"
-                                ng-click="sortBy = {'prop': 'hits-today', 'desc': !sortBy.desc}" 
+                                ng-click="changeSortingOrder('hits-today')"
                                 ng-show="isHits===false">
                                     <div class="d-flex justify-content-between">
                                     Today
-                                    <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'hits-today', 'rotate-down': !sortBy.desc && sortBy.prop === 'hits-today', 'text-gray': sortBy.prop !== 'hits-today'}">&uarr;</span>
+                                    <span ng-class="getSortArrowClassName('hits-today')">&uarr;</span>
                                   </div>
 
                             </th>
                             <th 
                                 ng-show="isHits===false"
                                 style="cursor: pointer"
-                                ng-click="sortBy = {'prop': 'hits-week', 'desc': !sortBy.desc}" >
+                                ng-click="changeSortingOrder('hits-week')">
                                     <div class="d-flex justify-content-between">
                                         Last 7 days
-                                        <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'hits-week', 'rotate-down': !sortBy.desc && sortBy.prop === 'hits-week', 'text-gray': sortBy.prop !== 'hits-week'}">&uarr;</span>
+                                        <span ng-class="getSortArrowClassName('hits-week')">&uarr;</span>
                                     </div>
                             </th>
                             <th 
-                              ng-show="isHits===false"
-                              style="cursor: pointer"
-                              ng-click="sortBy = {'prop': 'hits-overall', 'desc': !sortBy.desc}" >
+                                ng-show="isHits===false"
+                                style="cursor: pointer"
+                                ng-click="changeSortingOrder('hits-overall')">
                                 <div class="d-flex justify-content-between">
                                   Overall 
-                                  <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'hits-overall', 'rotate-down': !sortBy.desc && sortBy.prop === 'hits-overall', 'text-gray': sortBy.prop !== 'hits-overall'}">&uarr;</span>
+                                  <span ng-class="getSortArrowClassName('hits-overall')">&uarr;</span>
                                 </div>
                             </th>
                             <th
                                 style="cursor: pointer"
-                                ng-click="sortBy = {'prop': 'last-accessed', 'desc': !sortBy.desc}" >
+                                ng-click="changeSortingOrder('last-accessed')">
                                     <div class="d-flex justify-content-between">
                                         Last requested
-                                        <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'last-accessed', 'rotate-down': !sortBy.desc && sortBy.prop === 'last-accessed', 'text-gray': sortBy.prop !== 'last-accessed'}">&uarr;</span>
+                                        <span ng-class="getSortArrowClassName('last-accessed')">&uarr;</span>
                                     </div>
                             </th>
                             <th
-                            style="cursor: pointer"
-                            ng-click="sortBy = {'prop': 'monitor', 'desc': !sortBy.desc}" >
+                                style="cursor: pointer"
+                                ng-click="changeSortingOrder('monitor')">
                                 <div class="d-flex justify-content-between">
                                     <div> Monitoring-level<sup>*</sup></div>
-                                    <span ng-class="{'rotate-up': sortBy.desc && sortBy.prop === 'monitor', 'rotate-down': !sortBy.desc && sortBy.prop === 'monitor', 'text-gray': sortBy.prop !== 'monitor'}">&uarr;</span>
+                                    <span ng-class="getSortArrowClassName('monitor')">&uarr;</span>
                                 </div>
                             </th>
                         </tr>
