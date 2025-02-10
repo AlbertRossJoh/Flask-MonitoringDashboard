@@ -1,13 +1,13 @@
-const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    mode: process.env.NODE_ENV === "production" ? "production" : "development",
-    entry: ["./js/app.js", "./sass/app.scss"],
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+    entry: ['./js/app.js', './sass/app.scss'],
     output: {
-        path: path.resolve(__dirname, "../static"),
-        filename: "js/app.js",
-        publicPath: path.resolve(__dirname, "../static/"),
+        path: path.resolve(__dirname, '../static'),
+        filename: 'js/app.js',
+        publicPath: path.resolve(__dirname, '../static/'),
     },
     devServer: {
         port: 4200,
@@ -19,26 +19,26 @@ module.exports = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
-                        loader: "css-loader",
+                        loader: 'css-loader',
                         options: {
-                            url: false,
-                        },
+                            url: false
+                        }
                     },
-                    "sass-loader",
+                    'sass-loader'
                 ],
             },
             {
                 test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=\d+\.\d+\.\d+)?$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: "fonts/[name][ext]",
+                    filename: 'fonts/[name][ext]'
                 },
             },
         ],
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "css/[name].css",
+            filename: 'css/[name].css',
         }),
     ],
 };
