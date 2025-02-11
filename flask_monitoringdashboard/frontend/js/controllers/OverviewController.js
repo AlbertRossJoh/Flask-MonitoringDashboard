@@ -5,8 +5,9 @@ export function OverviewController($scope, $http, $location, menuService, endpoi
     $scope.pypi_version = '';
     $scope.dashboard_version = '';
     $scope.isHits = true;
+
     $scope.sortBy = 'name';
-    $scope.sortingOrder = {};
+    $scope.isDesc = true;
 
     $scope.table = [];
     $scope.selectedItem = 2;
@@ -30,12 +31,16 @@ export function OverviewController($scope, $http, $location, menuService, endpoi
         $scope.table = response.data;
     });
 
-    function sortOrder(a, b){
+    function ascendingOrder(a, b){
       return a[$scope.sortBy] > b[$scope.sortBy] || b[$scope.sortBy] === null;
+    }
+
+    function descendingOrder(a, b){
+        return ascendingOrder(b, a);
     }
     
     function sortItems(items){
-      return $scope.getOrAddSortingOrder($scope.sortBy) ? items.sort(sortOrder) : items.sort((a, b) => sortOrder(b, a))
+      return $scope.isDesc ? items.sort(descendingOrder) : items.sort(ascendingOrder)
     }
 
     function getItemsForPage(pageNumber) {
@@ -52,19 +57,13 @@ export function OverviewController($scope, $http, $location, menuService, endpoi
         return sortItems(items).slice(start, end);
     }
 
-    $scope.getOrAddSortingOrder = function (column) {
-        let orderBy = $scope.sortingOrder[column];
-        if (orderBy !== undefined) {
-            return orderBy;
-        }
-        $scope.sortingOrder[column] = true;
-        return true;
-    }
-    
     $scope.changeSortingOrder = function (column) {
-        for (const [key, value] of Object.entries($scope.sortingOrder))
-            $scope.sortingOrder[key] = key === column ? !value : true;
-        $scope.sortBy = column;
+        if (column !== $scope.sortBy){
+            $scope.isDesc = true;
+            $scope.sortBy = column;
+            return;
+        }
+        $scope.isDesc = !$scope.isDesc;
     }
 
     $scope.getFilteredItems = function () {
@@ -72,12 +71,10 @@ export function OverviewController($scope, $http, $location, menuService, endpoi
     }
 
     $scope.getSortArrowClassName = function (column) {
-      let isCurrentProp = $scope.sortBy === column;
-      let desc = $scope.getOrAddSortingOrder(column);
       return {
-        'rotate-up': desc,
-        'rotate-down': !desc,
-        'text-gray': !isCurrentProp 
+        'rotate-up': !$scope.isDesc && $scope.sortBy === column,
+        'rotate-down': $scope.isDesc && $scope.sortBy === column,
+        'text-gray': $scope.sortBy !== column 
       }
     }
 
